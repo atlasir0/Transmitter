@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package transmitter;
+
+import "google/protobuf/timestamp.proto";
+
+// Опция go_package указывает правильный путь для пакета Go.
+option go_package = ".";
+
+// Сообщение, представляющее данные передачи.
+message TransmitterData {
+    string session_id = 1;
+    double frequency = 2;
+    google.protobuf.Timestamp timestamp = 3;
+}
+
+// Сервис Transmitter, который будет передавать данные.
+service Transmitter {
+    // Метод для передачи потока данных.
+    rpc TransmitData(stream TransmitterData) returns (stream TransmitterData);
+}

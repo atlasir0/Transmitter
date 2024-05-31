@@ -1,0 +1,6 @@
+DB:
+  Host: localhost
+  Port: 5432
+  User: atlasiro
+  Password: 123
+  Name: db

@@ -55,3 +55,59 @@ func StartServer() error {
 	logrus.Info("Server started successfully")
 	return nil
 }
+
+
+package main
+
+import (
+	"fmt"
+)
+
+// Определение структуры для хранения значений
+type Resp struct {
+	ID    int    `json:"id"`
+	Value string `json:"value"`
+}
+
+// Метод для получения значений из мапы (замените на ваш метод)
+func (srv *Service) GetValue() map[string]int {
+	// Пример значений из мапы
+	return map[string]int{
+		"one":   1,
+		"two":   2,
+		"three": 3,
+	}
+}
+
+// Функция Param для преобразования мапы в список структур Resp
+func (srv *Service) Param() []Resp {
+	// Получаем значения из мапы
+	valuesMap := srv.GetValue()
+	// Создаем срез для хранения структур Resp
+	respList := make([]Resp, 0, len(valuesMap))
+	// Преобразуем мапу в список структур Resp
+	for k, v := range valuesMap {
+		respList = append(respList, Resp{ID: v, Value: k})
+	}
+	return respList
+}
+
+// Структура для сервиса
+type Service struct {
+	// Добавьте поля, необходимые для вашего сервиса
+	model Model
+}
+
+// Структура для модели (замените на вашу реализацию)
+type Model struct {
+	// Добавьте поля, необходимые для вашей модели
+}
+
+func main() {
+	// Создаем экземпляр сервиса
+	srv := &Service{}
+
+	// Вызываем функцию Param и выводим результат
+	respList := srv.Param()
+	fmt.Println(respList)
+}
